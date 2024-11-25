@@ -1,0 +1,12 @@
+.PHONY: gen-demo-proto
+gen-demo-proto:
+	@cd demo/demo_proto && cwgo server -I ../../idl --type RPC --module biz-demo/gomall/demo/demo_proto --service demo_proto --idl ../../idl/echo.proto
+
+.PHONY: gen-demo-thrift
+gen-demo-thrift:
+	@cd demo/demo-thrift && cwgo server -I ../../idl --type RPC --module biz-demo/gomall/demo/demo_thrift --service demo_thrift --idl ../../idl/echo.thrift
+
+.PHONY: gen-frontend
+gen-frontend:
+	cwgo server --type HTTP --idl  ../../idl/frontend/home.proto --service forntend -module biz-demo/gomall/app/frontend -I ../../idl -I /home/qiang-ubun/pan1/download/ProtoBuf/protoc-29.0-rc-2-linux-x86_64/include
+
