@@ -1,7 +1,11 @@
 package service
 
 import (
+	"biz-demo/gomall/app/frontend/infra/rpc"
+	"biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 
 	home "biz-demo/gomall/app/frontend/hertz_gen/frontend/home"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -22,16 +26,13 @@ func (h *HomeService) Run(req *home.Empty) (map[string]any, error) {
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
 	// todo edit your code
-	var resp = make(map[string]any)
-	items := []map[string]any{
-		{"Name": "T-shirt-1", "Price": 100, "Picture": "/static/image/t-shirt-1.jpeg"},
-		{"Name": "T-shirt-2", "Price": 100, "Picture": "/static/image/t-shirt-1.jpeg"},
-		{"Name": "T-shirt-3", "Price": 100, "Picture": "/static/image/t-shirt-2.jpeg"},
-		{"Name": "T-shirt-4", "Price": 100, "Picture": "/static/image/notebook.jpeg"},
-		{"Name": "T-shirt-5", "Price": 100, "Picture": "/static/image/t-shirt-1.jpeg"},
-		{"Name": "T-shirt-6", "Price": 100, "Picture": "/static/image/t-shirt.jpeg"},
+	products, err := rpc.ProductClient.ListProduct(h.Context, &product.ListProductReq{})
+	if err != nil {
+		return nil, err
 	}
-	resp["Title"] = "Hot Sales"
-	resp["Items"] = items
-	return resp, nil
+	hlog.Infof("ListProduct return ; %v", products.Products)
+	return utils.H{
+		"title": "Hot sale",
+		"items": products.Products,
+	}, nil
 }

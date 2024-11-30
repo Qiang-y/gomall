@@ -8,5 +8,15 @@ gen-demo-thrift:
 
 .PHONY: gen-frontend
 gen-frontend:
-	cwgo server --type HTTP --idl  ../../idl/frontend/home.proto --service forntend -module biz-demo/gomall/app/frontend -I ../../idl -I /home/qiang-ubun/pan1/download/ProtoBuf/protoc-29.0-rc-2-linux-x86_64/include
+	@cd app/frontend && cwgo server --type HTTP --idl  ../../idl/frontend/product_page.proto --service frontend -module biz-demo/gomall/app/frontend -I ../../idl -I /home/qiang-ubun/pan1/download/ProtoBuf/protoc-29.0-rc-2-linux-x86_64/include
+
+.PHONY: gen-user
+gen-user:
+	@cd rpc_gen && cwgo client --type RPC --service user --module biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/user.proto
+	@cd app/user && cwgo server --type RPC --service user --module biz-demo/gomall/app/user --pass "-use biz-demo/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/user.proto
+
+.PHONY: gen-product
+gen-product:
+	@cd rpc_gen && cwgo client --type RPC --service product --module biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/product.proto
+	@cd app/product && cwgo server --type RPC --service product --module biz-demo/gomall/app/product --pass "-use biz-demo/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/product.proto
 
