@@ -34,3 +34,4 @@ _testmain.go
 /output
 *.local.
 /tmp/*
+/tmp/
