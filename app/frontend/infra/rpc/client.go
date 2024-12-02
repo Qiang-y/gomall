@@ -3,6 +3,7 @@ package rpc
 import (
 	"biz-demo/gomall/app/frontend/conf"
 	frontendUtils "biz-demo/gomall/app/frontend/utils"
+	"biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"biz-demo/gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
@@ -13,6 +14,7 @@ import (
 var (
 	UserClient    userservice.Client
 	ProductClient productcatalogservice.Client
+	CartClient    cartservice.Client
 
 	once sync.Once
 )
@@ -21,6 +23,7 @@ func Init() {
 	once.Do(func() {
 		iniUserClient()
 		iniProductClient()
+		iniCartClient()
 	})
 }
 
@@ -35,5 +38,12 @@ func iniProductClient() {
 	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
 	frontendUtils.MustHandleError(err)
 	ProductClient, err = productcatalogservice.NewClient("product", client.WithResolver(r))
+	frontendUtils.MustHandleError(err)
+}
+
+func iniCartClient() {
+	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+	frontendUtils.MustHandleError(err)
+	CartClient, err = cartservice.NewClient("cart", client.WithResolver(r))
 	frontendUtils.MustHandleError(err)
 }

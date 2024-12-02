@@ -21,11 +21,6 @@ func NewHomeService(Context context.Context, RequestContext *app.RequestContext)
 }
 
 func (h *HomeService) Run(req *home.Empty) (map[string]any, error) {
-	//defer func() {
-	// hlog.CtxInfof(h.Context, "req = %+v", req)
-	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
-	//}()
-	// todo edit your code
 	products, err := rpc.ProductClient.ListProduct(h.Context, &product.ListProductReq{})
 	if err != nil {
 		return nil, err
