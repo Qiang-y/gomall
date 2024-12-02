@@ -1,2 +1,3 @@
 app/*/.env
 /app/frontend/tmp/
+/app/user/tmp/main
