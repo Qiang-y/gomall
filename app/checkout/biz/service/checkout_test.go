@@ -1,19 +1,21 @@
 package service
 
 import (
-	payment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
 	"context"
 	"testing"
 )
 
-func TestCharge_Run(t *testing.T) {
+func TestCheckout_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewChargeService(ctx)
+	s := NewCheckoutService(ctx)
 	// init req and assert value
 
-	req := &payment.ChargeReq{}
+	req := &checkout.CheckoutReq{}
 	resp, err := s.Run(req)
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
+
+	// todo: edit your unit test
 
 }

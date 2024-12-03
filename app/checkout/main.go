@@ -1,14 +1,13 @@
 package main
 
 import (
-	"biz-demo/gomall/app/payment/biz/dal"
-	"github.com/joho/godotenv"
+	"biz-demo/gomall/app/checkout/infra/rpc"
 	consul "github.com/kitex-contrib/registry-consul"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/payment/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/payment/paymentservice"
+	"biz-demo/gomall/app/checkout/conf"
+	"biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -18,12 +17,11 @@ import (
 )
 
 func main() {
-	_ = godotenv.Load()
-	dal.Init()
+	rpc.InitClient()
 
 	opts := kitexInit()
 
-	svr := paymentservice.NewServer(new(PaymentServiceImpl), opts...)
+	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
 
 	err := svr.Run()
 	if err != nil {
@@ -39,17 +37,17 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
+	// init consul
+	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		klog.Fatal(err)
+	}
+	opts = append(opts, server.WithRegistry(r))
+
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
-
-	// consul register
-	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
-	if err != nil {
-		panic(err)
-	}
-	opts = append(opts, server.WithRegistry(r))
 
 	// klog
 	logger := kitexlogrus.NewLogger()
@@ -62,7 +60,7 @@ func kitexInit() (opts []server.Option) {
 			MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
 			MaxAge:     conf.GetConf().Kitex.LogMaxAge,
 		}),
-		FlushInterval: time.Second * 5,
+		FlushInterval: time.Minute,
 	}
 	klog.SetOutput(asyncWriter)
 	server.RegisterShutdownHook(func() {

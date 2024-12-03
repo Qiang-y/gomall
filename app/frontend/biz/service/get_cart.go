@@ -6,6 +6,7 @@ import (
 	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	"biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"strconv"
 
@@ -23,15 +24,12 @@ func NewGetCartService(Context context.Context, RequestContext *app.RequestConte
 }
 
 func (h *GetCartService) Run(req *common.Empty) (resp map[string]any, err error) {
-	//defer func() {
-	// hlog.CtxInfof(h.Context, "req = %+v", req)
-	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
-	//}()
-	// todo edit your code
+
 	cartResp, err := rpc.CartClient.GetItem(h.Context, &cart.GetCartReq{
 		UserId: uint32(frontendUtils.GetUserIdFromCtx(h.Context)),
 	})
 	if err != nil {
+		hlog.Errorf("GetItem Error : %v", err.Error())
 		return nil, err
 	}
 	var items = make([]map[string]any, 0)
