@@ -55,7 +55,7 @@
                         <span>Hello</span>
                     </div>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Order Center</a></li>
+                        <li><a class="dropdown-item" href="/order">Order Center</a></li>
                         <li>
                             <form action="/auth/logout" method="post">
                                 <button class="dropdown-item" type="submit">Logout</button>
@@ -74,6 +74,13 @@
     <div class="text-bg-primary text-center">
         <p>This Website is hosted for demo purposes only.It is not an actual shop</p>
     </div>
+
+    {{ if .error }}
+    <div class="alert alert-danger text-center" role="alert">{{ .error }}</div>
+    {{ end }}
+    {{ if .warning }}
+    <div class="alert alert-danger text-center" role="alert">{{ .warning }}</div>
+    {{ end }}
 </header>
 <main style="min-height: calc(80vh);">
     <div class="container-fluid py-3">

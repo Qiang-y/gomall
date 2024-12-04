@@ -1,7 +1,6 @@
 package cart
 
 import (
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
 	"context"
 
 	"biz-demo/gomall/app/frontend/biz/service"
@@ -23,12 +22,13 @@ func GetCart(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	// 判断是否登录
-	userId := frontendUtils.GetUserIdFromCtx(ctx)
-	if userId == 0 {
-		c.Redirect(consts.StatusFound, []byte("/sign-in"))
-		return
-	}
+	// 放到中间件
+	//// 判断是否登录
+	//userId := frontendUtils.GetUserIdFromCtx(ctx)
+	//if userId == 0 {
+	//	c.Redirect(consts.StatusFound, []byte("/sign-in"))
+	//	return
+	//}
 
 	resp, err := service.NewGetCartService(ctx, c).Run(&req)
 	if err != nil {

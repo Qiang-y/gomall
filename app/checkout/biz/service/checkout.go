@@ -4,12 +4,12 @@ import (
 	"biz-demo/gomall/app/checkout/infra/rpc"
 	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	"biz-demo/gomall/rpc_gen/kitex_gen/order"
 	"biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/google/uuid"
 )
 
 type CheckoutService struct {
@@ -29,8 +29,11 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		return nil, kerrors.NewGRPCBizStatusError(5004001, "cart is empty")
 	}
 
-	// 计算购物车内商品总价
-	var total float32
+	var (
+		// 计算购物车内商品总价
+		total float32
+		oi    []*order.OrderItem
+	)
 
 	for _, cartItem := range cartResult.Item {
 		productResp, resultErr := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{
@@ -49,12 +52,37 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		p := productResp.Product.Price
 		cost := p * float32(cartItem.Quantity)
 		total += cost
+
+		oi = append(oi, &order.OrderItem{
+			Item: &cart.CartItem{
+				ProductId: cartItem.ProductId,
+				Quantity:  cartItem.Quantity,
+			},
+			Cost: cost,
+		})
 	}
 
-	// 创建订单, 暂时先模拟
+	// 创建订单
 	var orderid string
-	u, _ := uuid.NewRandom()
-	orderid = u.String()
+	orderResp, err := rpc.OrderClient.PlaceOrder(s.ctx, &order.PlaceOrderReq{
+		UserId: req.UserId,
+		Email:  req.Email,
+		Address: &order.Address{
+			Street:  req.Address.StreetAddress,
+			City:    req.Address.City,
+			State:   req.Address.State,
+			Country: req.Address.Country,
+			ZipCode: req.Address.ZipCode,
+		},
+		Items: oi,
+	})
+	if err != nil {
+		return nil, kerrors.NewGRPCBizStatusError(5004002, err.Error())
+	}
+
+	if orderResp != nil && orderResp.Order != nil {
+		orderid = orderResp.Order.OrderId
+	}
 
 	// 创建支付请求体
 	payReq := &payment.ChargeReq{
