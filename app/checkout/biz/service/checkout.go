@@ -1,15 +1,19 @@
 package service
 
 import (
+	"biz-demo/gomall/app/checkout/infra/mq"
 	"biz-demo/gomall/app/checkout/infra/rpc"
 	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	"biz-demo/gomall/rpc_gen/kitex_gen/email"
 	"biz-demo/gomall/rpc_gen/kitex_gen/order"
 	"biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/nats-io/nats.go"
+	"google.golang.org/protobuf/proto"
 )
 
 type CheckoutService struct {
@@ -109,6 +113,18 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		return nil, err
 	}
 	klog.Info(paymentResult)
+	klog.Info(orderResp)
+
+	// 使用Nats消息告知邮件服务发送邮件
+	data, _ := proto.Marshal(&email.EmailReq{
+		From:        "from@example.com",
+		To:          req.Email,
+		ContentType: "text/plain",
+		Subject:     "You have just created an order in the Example Shop",
+		Content:     "You have just created an order in the Example Shop",
+	})
+	msg := &nats.Msg{Subject: "email", Data: data} // 构造mats消息
+	_ = mq.Nc.PublishMsg(msg)                      // 向nats队列发布消息
 
 	resp = &checkout.CheckoutResp{
 		OrderId:       orderid,

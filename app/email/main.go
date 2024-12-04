@@ -1,14 +1,13 @@
 package main
 
 import (
-	"biz-demo/gomall/app/checkout/infra/mq"
-	"biz-demo/gomall/app/checkout/infra/rpc"
-	consul "github.com/kitex-contrib/registry-consul"
+	"biz-demo/gomall/app/email/biz/consumer"
+	"biz-demo/gomall/app/email/infra/mq"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/checkout/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"biz-demo/gomall/app/email/conf"
+	"biz-demo/gomall/rpc_gen/kitex_gen/email/emailservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -18,12 +17,11 @@ import (
 )
 
 func main() {
-	rpc.InitClient()
 	mq.Init()
-
+	consumer.Init()
 	opts := kitexInit()
 
-	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
+	svr := emailservice.NewServer(new(EmailServiceImpl), opts...)
 
 	err := svr.Run()
 	if err != nil {
@@ -38,13 +36,6 @@ func kitexInit() (opts []server.Option) {
 		panic(err)
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
-
-	// init consul
-	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
-	if err != nil {
-		klog.Fatal(err)
-	}
-	opts = append(opts, server.WithRegistry(r))
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{

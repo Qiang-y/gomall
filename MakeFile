@@ -40,3 +40,8 @@ gen-order:
 	@cd rpc_gen && cwgo client --type RPC --service order --module biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/order.proto
 	@cd app/order && cwgo server --type RPC --service order --module biz-demo/gomall/app/order --pass "-use biz-demo/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/order.proto
 
+.PHONY: gen-email
+gen-email:
+	@cd rpc_gen && cwgo client --type RPC --service email --module biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/email.proto
+	@cd app/email && cwgo server --type RPC --service email --module biz-demo/gomall/app/email --pass "-use biz-demo/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/email.proto
+
