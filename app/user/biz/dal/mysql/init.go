@@ -3,6 +3,7 @@ package mysql
 import (
 	"biz-demo/gomall/app/user/biz/model"
 	"fmt"
+	"gorm.io/plugin/opentelemetry/tracing"
 	"os"
 
 	"gorm.io/driver/mysql"
@@ -26,6 +27,12 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+
+	// 集成openTelemetry
+	if err = DB.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
+		panic(err)
+	}
+
 	err := DB.AutoMigrate(&model.User{})
 	if err != nil {
 		panic(err)

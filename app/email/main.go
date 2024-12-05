@@ -5,6 +5,7 @@ import (
 	"biz-demo/gomall/app/email/infra/mq"
 	"biz-demo/gomall/common/mtl"
 	"biz-demo/gomall/common/serversuite"
+	"context"
 	"net"
 	"time"
 
@@ -25,6 +26,9 @@ var (
 
 func main() {
 	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background()) // 保证关闭时数据能完整上传
+
 	mq.Init()
 	consumer.Init()
 	opts := kitexInit()

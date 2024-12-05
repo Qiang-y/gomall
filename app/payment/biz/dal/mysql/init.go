@@ -4,6 +4,7 @@ import (
 	"biz-demo/gomall/app/payment/biz/model"
 	"biz-demo/gomall/app/payment/conf"
 	"fmt"
+	"gorm.io/plugin/opentelemetry/tracing"
 	"os"
 
 	"gorm.io/driver/mysql"
@@ -23,6 +24,12 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
+
+	// 集成openTelemetry
+	if err = DB.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
+		panic(err)
+	}
+
 	err = DB.AutoMigrate(&model.PaymentLog{})
 	if err != nil {
 		panic(err)

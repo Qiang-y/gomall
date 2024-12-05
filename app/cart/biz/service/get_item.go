@@ -6,6 +6,7 @@ import (
 	cart "biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
+	"github.com/cloudwego/kitex/pkg/klog"
 )
 
 type GetItemService struct {
@@ -29,5 +30,6 @@ func (s *GetItemService) Run(req *cart.GetCartReq) (resp *cart.GetCartResp, err 
 			Quantity:  v.Qty,
 		})
 	}
+	klog.CtxInfof(s.ctx, "get items : %v", items)
 	return &cart.GetCartResp{Item: items}, nil
 }

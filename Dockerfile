@@ -1,0 +1,27 @@
+FROM golang:1.23
+
+WORKDIR /usr/src/gomall
+
+# 设置环境变量使用代理
+ENV GOPROXY=https://goproxy.cn,direct
+
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY app/frontend/go.mod app/frontend/go.sum ./app/frontend/
+COPY rpc_gen rpc_gen
+COPY common common
+RUN cd app/frontend/ && go mod download
+
+COPY app/frontend app/frontend
+RUN cd app/frontend/ && go build -v -o /opt/gomall/frontend/server
+
+COPY app/frontend/conf /opt/gomall/frontend/conf
+COPY app/frontend/static /opt/gomall/frontend/static
+COPY app/frontend/template /opt/gomall/frontend/template
+
+WORKDIR /opt/gomall/frontend
+
+# 声明端口
+EXPOSE 8080
+
+# 启动文件
+CMD ["./server"]

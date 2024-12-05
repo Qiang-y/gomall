@@ -4,6 +4,7 @@ import (
 	"biz-demo/gomall/app/order/biz/dal"
 	"biz-demo/gomall/common/mtl"
 	"biz-demo/gomall/common/serversuite"
+	"context"
 	"github.com/joho/godotenv"
 	"net"
 	"time"
@@ -27,6 +28,9 @@ var (
 func main() {
 	_ = godotenv.Load()
 	mtl.InitMetric(ServiceName, MetricsPort, RegistryAddr)
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background()) // 保证关闭时数据能完整上传
+
 	dal.Init()
 
 	opts := kitexInit()

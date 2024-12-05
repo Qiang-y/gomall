@@ -13,6 +13,8 @@ import (
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/nats-io/nats.go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/propagation"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -123,8 +125,9 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		Subject:     "You have just created an order in the Example Shop",
 		Content:     "You have just created an order in the Example Shop",
 	})
-	msg := &nats.Msg{Subject: "email", Data: data} // 构造mats消息
-	_ = mq.Nc.PublishMsg(msg)                      // 向nats队列发布消息
+	msg := &nats.Msg{Subject: "email", Data: data, Header: make(nats.Header)}        // 构造mats消息
+	otel.GetTextMapPropagator().Inject(s.ctx, propagation.HeaderCarrier(msg.Header)) // 接入opentelemetry链路追踪
+	_ = mq.Nc.PublishMsg(msg)                                                        // 向nats队列发布消息
 
 	resp = &checkout.CheckoutResp{
 		OrderId:       orderid,
