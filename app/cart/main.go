@@ -3,8 +3,9 @@ package main
 import (
 	"biz-demo/gomall/app/cart/biz/dal"
 	"biz-demo/gomall/app/cart/rpc"
+	"biz-demo/gomall/common/mtl"
+	"biz-demo/gomall/common/serversuite"
 	"github.com/joho/godotenv"
-	consul "github.com/kitex-contrib/registry-consul"
 	"net"
 	"time"
 
@@ -18,8 +19,14 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegistryAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
+
 func main() {
 	_ = godotenv.Load()
+	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
 	dal.Init()
 	rpc.Init()
 
@@ -41,12 +48,11 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
-	// Consul注册
-	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
-	if err != nil {
-		panic(err)
-	}
-	opts = append(opts, server.WithRegistry(r))
+	// Consul注册 和 Prometheus链路追踪
+	opts = append(opts, server.WithSuite(serversuite.CommonServerSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{

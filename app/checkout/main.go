@@ -3,7 +3,8 @@ package main
 import (
 	"biz-demo/gomall/app/checkout/infra/mq"
 	"biz-demo/gomall/app/checkout/infra/rpc"
-	consul "github.com/kitex-contrib/registry-consul"
+	"biz-demo/gomall/common/mtl"
+	"biz-demo/gomall/common/serversuite"
 	"net"
 	"time"
 
@@ -17,7 +18,13 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegistryAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
+
 func main() {
+	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
 	rpc.InitClient()
 	mq.Init()
 
@@ -39,12 +46,16 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
-	// init consul
-	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
-	if err != nil {
-		klog.Fatal(err)
-	}
-	opts = append(opts, server.WithRegistry(r))
+	// init consul and prometheus
+	//r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
+	//if err != nil {
+	//	klog.Fatal(err)
+	//}
+	//opts = append(opts, server.WithRegistry(r))
+	opts = append(opts, server.WithSuite(serversuite.CommonServerSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{

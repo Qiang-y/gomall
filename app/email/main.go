@@ -3,6 +3,8 @@ package main
 import (
 	"biz-demo/gomall/app/email/biz/consumer"
 	"biz-demo/gomall/app/email/infra/mq"
+	"biz-demo/gomall/common/mtl"
+	"biz-demo/gomall/common/serversuite"
 	"net"
 	"time"
 
@@ -16,7 +18,13 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegistryAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
+
 func main() {
+	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
 	mq.Init()
 	consumer.Init()
 	opts := kitexInit()
@@ -36,6 +44,12 @@ func kitexInit() (opts []server.Option) {
 		panic(err)
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
+
+	// 添加Prometheus监控
+	opts = append(opts, server.WithSuite(serversuite.CommonServerSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
