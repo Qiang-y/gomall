@@ -45,3 +45,25 @@ gen-email:
 	@cd rpc_gen && cwgo client --type RPC --service email --module biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/email.proto
 	@cd app/email && cwgo server --type RPC --service email --module biz-demo/gomall/app/email --pass "-use biz-demo/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/email.proto
 
+
+.PHONY: open.consul
+open-consul: ## open `consul ui` in the default browser
+	@open "http://localhost:8500/ui/"
+
+.PHONY: open.jaeger
+open-jaeger: ## open `jaeger ui` in the default browser
+	@open "http://localhost:16686/search"
+
+.PHONY: open.prometheus
+open-prometheus: ## open `prometheus ui` in the default browser
+	@open "http://localhost:9090"
+
+# docker run -v ./app/frontend/conf:/opt/gomall/frontend/conf --network gomall_default --env-file ./app/frontend/.env -p 8080:8080 frontend:v1.1.1
+.PHONY:	build-frontend
+build-frontend:
+	docker build -f ./deploy/Dockerfile.frontend -t frontend:${v} .
+
+# docker run -v ./app/product/conf:/opt/gomall/product/conf --network gomall_default --env-file ./app/product/.env product:v1.1.1
+.PHONY:	build-svc
+build-svc:
+	docker build -f ./deploy/Dockerfile.svc -t ${svc}:${v} --build-arg SVC=${svc} .

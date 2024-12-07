@@ -1,6 +1,7 @@
 package service
 
 import (
+	"biz-demo/gomall/app/frontend/biz/dal/redis"
 	checkout "biz-demo/gomall/app/frontend/hertz_gen/frontend/checkout"
 	"biz-demo/gomall/app/frontend/infra/rpc"
 	frontendUtils "biz-demo/gomall/app/frontend/utils"
@@ -8,6 +9,7 @@ import (
 	rpcpayment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )
 
@@ -45,8 +47,14 @@ func (h *CheckoutWaitingService) Run(req *checkout.CheckoutReq) (resp map[string
 		return nil, err
 	}
 
+	redisKey := string(userId) + "_cart_num"
+	err = redis.RedisClient.Del(h.Context, redisKey).Err()
+	if err != nil {
+		hlog.CtxErrorf(h.Context, "redis Del Err : %v", err.Error())
+	}
+
 	return utils.H{
 		"title":    "waiting",
 		"redirect": "/checkout/result",
-	}, err
+	}, nil
 }

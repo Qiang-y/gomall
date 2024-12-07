@@ -1,0 +1,32 @@
+FROM golang:1.23 AS builder
+
+ARG SVC
+
+WORKDIR /usr/src/gomall
+
+# 设置环境变量使用代理
+ENV GOPROXY=https://goproxy.cn,direct
+
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY app/${SVC}/go.mod app/${SVC}/go.sum ./app/${SVC}/
+COPY rpc_gen rpc_gen
+COPY common common
+RUN cd common && go mod download
+RUN cd app/${SVC}/ && go mod download
+
+COPY app/${SVC} app/${SVC}
+RUN cd app/${SVC}/ && CGO_ENABLED=0 && go build -v -o /opt/gomall/${SVC}/server
+
+FROM busybox
+
+ARG SVC
+COPY --from=builder /opt/gomall/${SVC}/server /opt/gomall/${SVC}/server
+
+
+COPY app/${SVC}/conf /opt/gomall/${SVC}/conf
+
+WORKDIR /opt/gomall/${SVC}
+
+
+# 启动文件
+CMD ["./server"]

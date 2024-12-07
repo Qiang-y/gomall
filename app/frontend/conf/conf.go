@@ -23,6 +23,11 @@ type Config struct {
 	Hertz Hertz `yaml:"hertz"`
 	MySQL MySQL `yaml:"mysql"`
 	Redis Redis `yaml:"redis"`
+	Nats  Nats  `yaml:"nats"`
+}
+
+type Nats struct {
+	Address string `yaml:"address"`
 }
 
 type MySQL struct {

@@ -25,7 +25,6 @@ func (h *RegisterService) Run(req *auth.RegisterReq) (resp *common.Empty, err er
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	// todo user model api
 
 	// 调用注册微服务
 	userResp, err := rpc.UserClient.Register(h.Context, &user.RegisterReq{

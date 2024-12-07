@@ -24,7 +24,6 @@ func (h *CategoryService) Run(req *category.CategoryReq) (resp map[string]any, e
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	// todo edit your code
 	p, err := rpc.ProductClient.ListProduct(h.Context, &product.ListProductReq{CategoryName: req.Category})
 	if err != nil {
 		return nil, err

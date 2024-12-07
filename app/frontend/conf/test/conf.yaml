@@ -8,14 +8,17 @@ hertz:
   log_max_size: 10
   log_max_age: 3
   log_max_backups: 50
-  registry_addr: "consul:8500"
+  registry_addr: "127.0.0.1:8500"
   metrics_port: ":8090"
 
 mysql:
   dsn: "gorm:gorm@tcp(127.0.0.1:3307)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 
 redis:
-  address: "gomall-redis-1:6380"
+  address: "127.0.0.1:6380"
   username: ""
   password: ""
   db: 0
+
+nats:
+  address: "127.0.0.1:4222"

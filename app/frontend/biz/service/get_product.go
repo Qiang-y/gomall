@@ -24,7 +24,6 @@ func (h *GetProductService) Run(req *product.ProductReq) (resp map[string]any, e
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	// todo edit your code
 	p, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: req.Id})
 	if err != nil {
 		return nil, err

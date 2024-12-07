@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 services:
   consul:
     image: 'hashicorp/consul'
@@ -12,6 +12,12 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ./db/sql/ini:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping","-h","localhost","-u","root","-proot" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 1m
   redis:
     image: 'redis:latest'
     ports:
@@ -22,6 +28,34 @@ services:
     ports:
       - "4222:4222"
       - "8222:8222"
+    volumes:
+      - "/home/qiang-ubun/pan1/data/nats/data:/nats/data"
+    environment:
+      - JS_ENABLE=1 # 启用JetStream
+      - NATS_SERVER="-js --store_dir=/nats/data"
+  minio:
+    image: "quay.io/minio/minio:RELEASE.2024-11-07T00-52-20Z"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - "/home/qiang-ubun/pan1/data/minio/data:/data"
+    #      - "/home/qiang-ubun/pan1/data/minio/data2:/data2"
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"    # 限制 CPU 数量
+          memory: "4G"    # 限制内存大小
+    command: server --console-address ":9001" /data
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=minio123456
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
   prometheus:
     image: prom/prometheus:latest
     volumes:
@@ -63,3 +97,158 @@ services:
       - ./app/frontend/log:/logs/frontend
       - ./app/cart/log:/logs/cart
     command: -config.file=/etc/promtail/config.yml
+
+
+  #  以下是构建应用
+#  frontend:
+#    #    build:
+#    #      context: .
+#    #      dockerfile: ./deploy/Dockerfile.frontend
+#    image: "frontend:latest"
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - SESSION_SECRET=ADSIFNGADSF
+#      - GO_ENV=dev
+#    depends_on:
+#      - consul
+#      - redis
+#    volumes:
+#      - ./app/frontend/conf/dev:/opt/gomall/frontend/conf/dev
+#
+#  product:
+#    image: "product:latest"
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./app/product/conf/dev:/opt/gomall/product/conf/dev
+#
+#  user:
+#    image: "user:latest"
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./app/user/conf/dev:/opt/gomall/user/conf/dev
+#
+#  cart:
+#    image: "cart:latest"
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./app/cart/conf/dev:/opt/gomall/cart/conf/dev
+#
+#  payment:
+#    image: "payment:latest"
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./app/payment/conf/dev:/opt/gomall/payment/conf/dev
+#
+#  checkout:
+#    build:
+#      context: .
+#      dockerfile: ./deploy/Dockerfile.svc
+#      args:
+#        - SVC=checkout
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#      nats:
+#        condition: service_started
+#    volumes:
+#      - ./app/checkout/conf/dev:/opt/gomall/checkout/conf/dev
+#
+#  order:
+#    build:
+#      context: .
+#      dockerfile: ./deploy/Dockerfile.svc
+#      args:
+#        - SVC=order
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    volumes:
+#      - ./app/order/conf/dev:/opt/gomall/order/conf/dev
+#
+#  email:
+#    build:
+#      context: .
+#      dockerfile: ./deploy/Dockerfile.svc
+#      args:
+#        - SVC=email
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_HOST=mysql
+#      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+#      - OTEL_EXPORTER_OTLP_INSECURE=true
+#      - GO_ENV=dev
+#    depends_on:
+#      consul:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#      nats:
+#        condition: service_started
+#    volumes:
+#      - ./app/email/conf/dev:/opt/gomall/email/conf/dev

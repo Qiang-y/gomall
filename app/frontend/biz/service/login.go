@@ -25,7 +25,6 @@ func (h *LoginService) Run(req *auth.LoginReq) (redirect string, err error) {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	// todo edit your code
 
 	// 调用登录微服务
 	resp, err := rpc.UserClient.Login(h.Context, &user.LoginReq{

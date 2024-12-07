@@ -15,10 +15,13 @@ registry:
   password: ""
 
 mysql:
-  dsn: "gorm:gorm@tcp(127.0.0.1:3307)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "gorm:gorm@tcp(mysql:3307)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 
 redis:
-  address: "127.0.0.1:6380"
+  address: "redis:6379"
   username: ""
   password: ""
   db: 0
+
+nats:
+  address: "nats:4222"

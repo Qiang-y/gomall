@@ -24,7 +24,6 @@ func (h *SearchProductService) Run(req *product.SearchProductReq) (resp map[stri
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
-	// todo edit your code
 
 	p, err := rpc.ProductClient.SearchProduct(h.Context, &rpcproduct.SearchProductReq{
 		Query: req.Q,

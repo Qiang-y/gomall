@@ -3,6 +3,8 @@
 package main
 
 import (
+	"biz-demo/gomall/app/frontend/biz/consumer"
+	"biz-demo/gomall/app/frontend/biz/dal"
 	"biz-demo/gomall/app/frontend/infra/rpc"
 	"biz-demo/gomall/app/frontend/middleware"
 	frontendUtils "biz-demo/gomall/app/frontend/utils"
@@ -43,13 +45,16 @@ var (
 func main() {
 	_ = godotenv.Load()
 	// init dal
-	// dal.Init()
+	dal.Init()
 
 	consul, registryInfo := mtl.InitMetric(ServiceName, MetricsPort, RegistryAddr)
 	defer consul.Deregister(registryInfo)
 
 	// init rpc 服务
 	rpc.Init()
+
+	// init redis delete consumer
+	consumer.Init()
 
 	// 集成prometheus和opentelemetry
 	address := conf.GetConf().Hertz.Address
