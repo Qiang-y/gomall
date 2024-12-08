@@ -19,3 +19,6 @@ redis:
   username: ""
   password: ""
   db: 0
+
+nats:
+  address: "nats:4222"

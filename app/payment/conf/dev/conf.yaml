@@ -15,7 +15,7 @@ registry:
   password: ""
 
 mysql:
-  dsn: "%s:%s@tcp(%s:3306)/payment?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "%s:%s@tcp(mysql:3306)/payment?charset=utf8mb4&parseTime=True&loc=Local"
 
 redis:
   address: "redis:6379"
