@@ -40,7 +40,7 @@ func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string
 			})
 			if err == nil && cartResp != nil {
 				content["cart_num"] = len(cartResp.Item)
-				frontredis.RedisClient.Set(ctx, redisKey, len(cartResp.Item), 2*time.Minute)
+				frontredis.RedisClient.Set(ctx, redisKey, len(cartResp.Item), 30*time.Second)
 			}
 		} else if err != nil {
 			hlog.CtxErrorf(ctx, "redis get error : %#v", err.Error())

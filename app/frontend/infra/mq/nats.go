@@ -45,7 +45,7 @@ func initConsumerJS() {
 }
 
 func initProviderJS() {
-	Pnc, err = nats.Connect(nats.DefaultURL)
+	Pnc, err = nats.Connect(conf.GetConf().Nats.Address)
 	if err != nil {
 		hlog.Errorf("Nats Connect Err : %#v", err.Error())
 	}
