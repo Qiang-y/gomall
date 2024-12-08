@@ -32,7 +32,7 @@ func (h *LoginService) Run(req *auth.LoginReq) (redirect string, err error) {
 		Password: req.Password,
 	})
 	if err != nil {
-		return "", err
+		return "/sign-up", err
 	}
 
 	session := sessions.Default(h.RequestContext)

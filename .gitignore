@@ -4,4 +4,4 @@ app/*/.env
 /app/payment/tmp/
 /app/checkout/tmp/
 /app/cart/tmp/
-/gomall.tar
+/*.tar

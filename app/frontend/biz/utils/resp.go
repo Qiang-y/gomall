@@ -34,7 +34,10 @@ func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string
 		redisKey := string(userId) + "_cart_num"
 		redisCartNum, err := frontredis.RedisClient.Get(ctx, redisKey).Result()
 		hlog.CtxInfof(ctx, "redisCartNum = %v", redisCartNum)
-		if errors.Is(err, redis.Nil) {
+		if err != nil {
+			if !errors.Is(err, redis.Nil) {
+				hlog.CtxErrorf(ctx, "redis get error : %#v", err.Error())
+			}
 			cartResp, err := rpc.CartClient.GetItem(ctx, &cart.GetCartReq{
 				UserId: uint32(userId),
 			})
@@ -42,8 +45,6 @@ func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string
 				content["cart_num"] = len(cartResp.Item)
 				frontredis.RedisClient.Set(ctx, redisKey, len(cartResp.Item), 30*time.Second)
 			}
-		} else if err != nil {
-			hlog.CtxErrorf(ctx, "redis get error : %#v", err.Error())
 		} else if redisCartNum != "0" {
 			content["cart_num"] = redisCartNum
 		}

@@ -2,6 +2,7 @@ package service
 
 import (
 	"biz-demo/gomall/app/product/biz/dal/mysql"
+	"biz-demo/gomall/app/product/biz/dal/redis"
 	"biz-demo/gomall/app/product/biz/model"
 	product "biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
@@ -21,7 +22,8 @@ func (s *GetProductService) Run(req *product.GetProductReq) (resp *product.GetPr
 	if req.Id == 0 {
 		return nil, kerrors.NewGRPCBizStatusError(2004001, "product id is required") //2004001 表示参数错误
 	}
-	productQuery := model.NewProductQuery(s.ctx, mysql.DB)
+	//productQuery := model.NewProductQuery(s.ctx, mysql.DB)
+	productQuery := model.NewCachedProductQuery(s.ctx, mysql.DB, redis.RedisClient)
 	p, err := productQuery.GetById(int(req.Id))
 	if err != nil {
 		return nil, err

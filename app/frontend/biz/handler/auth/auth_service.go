@@ -23,7 +23,8 @@ func Login(ctx context.Context, c *app.RequestContext) {
 
 	redirect, err := service.NewLoginService(ctx, c).Run(&req)
 	if err != nil {
-		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		//utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		c.Redirect(consts.StatusSeeOther, []byte(redirect))
 		return
 	}
 	c.Redirect(consts.StatusOK, []byte(redirect))
