@@ -1,0 +1,19 @@
+[
+  {
+    "AllowedOrigins": [
+      "http://60.205.90.197:8080"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE"
+    ],
+    "AllowedHeaders": [
+      "*"
+    ],
+    "ExposeHeaders": [
+      "ETag"
+    ]
+  }
+]
