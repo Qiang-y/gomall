@@ -44,7 +44,8 @@ func Register(ctx context.Context, c *app.RequestContext) {
 	_, err = service.NewRegisterService(ctx, c).Run(&req)
 
 	if err != nil {
-		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		//utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		c.Redirect(consts.StatusBadRequest, []byte("/sign-up"))
 		return
 	}
 	c.Redirect(consts.StatusOK, []byte("/"))
