@@ -5,3 +5,4 @@ app/*/.env
 /app/checkout/tmp/
 /app/cart/tmp/
 /*.tar
+/deploy/docker/
