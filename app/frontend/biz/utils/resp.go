@@ -29,7 +29,6 @@ func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string
 	content["user_id"] = userId
 
 	// 判断购物车数量
-	// todo: 用redis替代rpc
 	if userId > 0 {
 		redisKey := string(userId) + "_cart_num"
 		redisCartNum, err := frontredis.RedisClient.Get(ctx, redisKey).Result()

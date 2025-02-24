@@ -30,6 +30,7 @@ func (s *SearchProductService) Run(req *product.SearchProductReq) (resp *product
 			Description: v.Description,
 			Picture:     v.Picture,
 			Price:       v.Price,
+			Quantity:    v.Quantity,
 		})
 	}
 	return &product.SearchProductResp{Results: results}, nil

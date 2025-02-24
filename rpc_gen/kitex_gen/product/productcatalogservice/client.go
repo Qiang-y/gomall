@@ -14,6 +14,7 @@ type Client interface {
 	ListProduct(ctx context.Context, Req *product.ListProductReq, callOptions ...callopt.Option) (r *product.ListProductResp, err error)
 	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
 	SearchProduct(ctx context.Context, Req *product.SearchProductReq, callOptions ...callopt.Option) (r *product.SearchProductResp, err error)
+	ReduceProduct(ctx context.Context, Req *product.ReduceProductReq, callOptions ...callopt.Option) (r *product.ReduceProductResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -58,4 +59,9 @@ func (p *kProductCatalogServiceClient) GetProduct(ctx context.Context, Req *prod
 func (p *kProductCatalogServiceClient) SearchProduct(ctx context.Context, Req *product.SearchProductReq, callOptions ...callopt.Option) (r *product.SearchProductResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SearchProduct(ctx, Req)
+}
+
+func (p *kProductCatalogServiceClient) ReduceProduct(ctx context.Context, Req *product.ReduceProductReq, callOptions ...callopt.Option) (r *product.ReduceProductResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ReduceProduct(ctx, Req)
 }

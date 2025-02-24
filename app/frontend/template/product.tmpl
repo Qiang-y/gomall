@@ -40,6 +40,7 @@
                     <h5 class="card-title">{{ .item.Name }}</h5>
                     <p class="card-text">{{ .item.Description }}</p>
                     <p class="card-text">${{ .item.Price }}</p>
+                    <p class="card-text">库存：{{ .item.Quantity }}</p>
                     <input name="productId" type="hidden" value="{{ .item.Id }}">
                     <label for="productNum">数量：</label>
                     <input class="form-control mt-3" id="productNum" min="1" name="productNum" type="number"

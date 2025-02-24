@@ -89,6 +89,11 @@ func (x *Product) FastRead(buf []byte, _type int8, number int32) (offset int, er
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 7:
+		offset, err = x.fastReadField7(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -134,6 +139,11 @@ func (x *Product) fastReadField6(buf []byte, _type int8) (offset int, err error)
 		return offset, err
 	}
 	x.Categories = append(x.Categories, v)
+	return offset, err
+}
+
+func (x *Product) fastReadField7(buf []byte, _type int8) (offset int, err error) {
+	x.Quantity, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -277,6 +287,96 @@ func (x *SearchProductResp) fastReadField1(buf []byte, _type int8) (offset int, 
 	return offset, nil
 }
 
+func (x *ReduceProducts) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	case 2:
+		offset, err = x.fastReadField2(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_ReduceProducts[number], err)
+}
+
+func (x *ReduceProducts) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	x.Id, offset, err = fastpb.ReadUint32(buf, _type)
+	return offset, err
+}
+
+func (x *ReduceProducts) fastReadField2(buf []byte, _type int8) (offset int, err error) {
+	x.Quantity, offset, err = fastpb.ReadUint32(buf, _type)
+	return offset, err
+}
+
+func (x *ReduceProductReq) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_ReduceProductReq[number], err)
+}
+
+func (x *ReduceProductReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	var v ReduceProducts
+	offset, err = fastpb.ReadMessage(buf, _type, &v)
+	if err != nil {
+		return offset, err
+	}
+	x.Products = append(x.Products, &v)
+	return offset, nil
+}
+
+func (x *ReduceProductResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_ReduceProductResp[number], err)
+}
+
+func (x *ReduceProductResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	x.Succeed, offset, err = fastpb.ReadBool(buf, _type)
+	return offset, err
+}
+
 func (x *ListProductReq) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -321,6 +421,7 @@ func (x *Product) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField4(buf[offset:])
 	offset += x.fastWriteField5(buf[offset:])
 	offset += x.fastWriteField6(buf[offset:])
+	offset += x.fastWriteField7(buf[offset:])
 	return offset
 }
 
@@ -371,6 +472,14 @@ func (x *Product) fastWriteField6(buf []byte) (offset int) {
 	for i := range x.GetCategories() {
 		offset += fastpb.WriteString(buf[offset:], 6, x.GetCategories()[i])
 	}
+	return offset
+}
+
+func (x *Product) fastWriteField7(buf []byte) (offset int) {
+	if x.Quantity == 0 {
+		return offset
+	}
+	offset += fastpb.WriteUint32(buf[offset:], 7, x.GetQuantity())
 	return offset
 }
 
@@ -458,6 +567,65 @@ func (x *SearchProductResp) fastWriteField1(buf []byte) (offset int) {
 	return offset
 }
 
+func (x *ReduceProducts) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	offset += x.fastWriteField2(buf[offset:])
+	return offset
+}
+
+func (x *ReduceProducts) fastWriteField1(buf []byte) (offset int) {
+	if x.Id == 0 {
+		return offset
+	}
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetId())
+	return offset
+}
+
+func (x *ReduceProducts) fastWriteField2(buf []byte) (offset int) {
+	if x.Quantity == 0 {
+		return offset
+	}
+	offset += fastpb.WriteUint32(buf[offset:], 2, x.GetQuantity())
+	return offset
+}
+
+func (x *ReduceProductReq) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	return offset
+}
+
+func (x *ReduceProductReq) fastWriteField1(buf []byte) (offset int) {
+	if x.Products == nil {
+		return offset
+	}
+	for i := range x.GetProducts() {
+		offset += fastpb.WriteMessage(buf[offset:], 1, x.GetProducts()[i])
+	}
+	return offset
+}
+
+func (x *ReduceProductResp) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	return offset
+}
+
+func (x *ReduceProductResp) fastWriteField1(buf []byte) (offset int) {
+	if !x.Succeed {
+		return offset
+	}
+	offset += fastpb.WriteBool(buf[offset:], 1, x.GetSucceed())
+	return offset
+}
+
 func (x *ListProductReq) Size() (n int) {
 	if x == nil {
 		return n
@@ -502,6 +670,7 @@ func (x *Product) Size() (n int) {
 	n += x.sizeField4()
 	n += x.sizeField5()
 	n += x.sizeField6()
+	n += x.sizeField7()
 	return n
 }
 
@@ -552,6 +721,14 @@ func (x *Product) sizeField6() (n int) {
 	for i := range x.GetCategories() {
 		n += fastpb.SizeString(6, x.GetCategories()[i])
 	}
+	return n
+}
+
+func (x *Product) sizeField7() (n int) {
+	if x.Quantity == 0 {
+		return n
+	}
+	n += fastpb.SizeUint32(7, x.GetQuantity())
 	return n
 }
 
@@ -639,6 +816,65 @@ func (x *SearchProductResp) sizeField1() (n int) {
 	return n
 }
 
+func (x *ReduceProducts) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	n += x.sizeField2()
+	return n
+}
+
+func (x *ReduceProducts) sizeField1() (n int) {
+	if x.Id == 0 {
+		return n
+	}
+	n += fastpb.SizeUint32(1, x.GetId())
+	return n
+}
+
+func (x *ReduceProducts) sizeField2() (n int) {
+	if x.Quantity == 0 {
+		return n
+	}
+	n += fastpb.SizeUint32(2, x.GetQuantity())
+	return n
+}
+
+func (x *ReduceProductReq) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	return n
+}
+
+func (x *ReduceProductReq) sizeField1() (n int) {
+	if x.Products == nil {
+		return n
+	}
+	for i := range x.GetProducts() {
+		n += fastpb.SizeMessage(1, x.GetProducts()[i])
+	}
+	return n
+}
+
+func (x *ReduceProductResp) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	return n
+}
+
+func (x *ReduceProductResp) sizeField1() (n int) {
+	if !x.Succeed {
+		return n
+	}
+	n += fastpb.SizeBool(1, x.GetSucceed())
+	return n
+}
+
 var fieldIDToName_ListProductReq = map[int32]string{
 	1: "Page",
 	2: "PageSize",
@@ -652,6 +888,7 @@ var fieldIDToName_Product = map[int32]string{
 	4: "Picture",
 	5: "Price",
 	6: "Categories",
+	7: "Quantity",
 }
 
 var fieldIDToName_ListProductResp = map[int32]string{
@@ -672,4 +909,17 @@ var fieldIDToName_SearchProductReq = map[int32]string{
 
 var fieldIDToName_SearchProductResp = map[int32]string{
 	1: "Results",
+}
+
+var fieldIDToName_ReduceProducts = map[int32]string{
+	1: "Id",
+	2: "Quantity",
+}
+
+var fieldIDToName_ReduceProductReq = map[int32]string{
+	1: "Products",
+}
+
+var fieldIDToName_ReduceProductResp = map[int32]string{
+	1: "Succeed",
 }

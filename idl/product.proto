@@ -8,6 +8,7 @@ service ProductCatalogService{
   rpc ListProduct(ListProductReq) returns (ListProductResp) {};
   rpc GetProduct(GetProductReq) returns (GetProductResp) {};
   rpc SearchProduct(SearchProductReq) returns (SearchProductResp) {};
+  rpc ReduceProduct(ReduceProductReq) returns (ReduceProductResp) {}
 }
 
 message ListProductReq{
@@ -23,6 +24,7 @@ message Product{
   float price = 5;
 
   repeated string categories = 6;
+  uint32 quantity = 7;
 }
 
 message ListProductResp{
@@ -43,4 +45,17 @@ message SearchProductReq{
 
 message SearchProductResp{
   repeated Product results = 1;
+}
+
+message ReduceProducts{
+  uint32 id = 1;
+  uint32 quantity = 2;
+}
+
+message ReduceProductReq{
+  repeated ReduceProducts products = 1;
+}
+
+message ReduceProductResp{
+  bool succeed = 1;
 }

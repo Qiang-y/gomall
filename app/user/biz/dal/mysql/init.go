@@ -4,11 +4,10 @@ import (
 	"biz-demo/gomall/app/user/biz/model"
 	"biz-demo/gomall/app/user/conf"
 	"fmt"
-	"gorm.io/plugin/opentelemetry/tracing"
-	"os"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/plugin/opentelemetry/tracing"
+	"os"
 )
 
 var (

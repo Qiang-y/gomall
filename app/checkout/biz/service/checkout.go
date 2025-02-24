@@ -10,6 +10,7 @@ import (
 	"biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"context"
+	"fmt"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/nats-io/nats.go"
@@ -41,6 +42,8 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		oi    []*order.OrderItem
 	)
 
+	var reduceProd []*product.ReduceProducts
+
 	for _, cartItem := range cartResult.Item {
 		productResp, resultErr := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{
 			Id: cartItem.ProductId,
@@ -54,6 +57,15 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 			// todo: 找不到购物车内对应商品的case，暂时先跳过
 			continue
 		}
+
+		if productResp.Product.Quantity < cartItem.Quantity {
+			return nil, kerrors.NewGRPCBizStatusError(5004002, fmt.Sprintf("Product %d have no enough quantity", cartItem.ProductId))
+		}
+
+		reduceProd = append(reduceProd, &product.ReduceProducts{
+			Id:       cartItem.ProductId,
+			Quantity: cartItem.Quantity,
+		})
 
 		p := productResp.Product.Price
 		cost := p * float32(cartItem.Quantity)
@@ -107,6 +119,13 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	_, err = rpc.CartClient.EmptyCart(s.ctx, &cart.EmptyCartReq{UserId: req.UserId})
 	if err != nil {
 		klog.Error(err.Error())
+	}
+
+	// 减少商品库存
+	reduceResp, err := rpc.ProductClient.ReduceProduct(s.ctx, &product.ReduceProductReq{Products: reduceProd})
+	if !reduceResp.GetSucceed() || err != nil {
+		klog.Error(err.Error())
+		//return nil, kerrors.NewGRPCBizStatusError(5004002, err.Error())
 	}
 
 	// 调用支付服务

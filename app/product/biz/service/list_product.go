@@ -33,6 +33,7 @@ func (s *ListProductService) Run(req *product.ListProductReq) (resp *product.Lis
 				Description: v.Description,
 				Picture:     v.Picture,
 				Price:       v.Price,
+				Quantity:    v.Quantity,
 			})
 		}
 	}

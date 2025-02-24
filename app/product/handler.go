@@ -29,3 +29,10 @@ func (s *ProductCatalogServiceImpl) SearchProduct(ctx context.Context, req *prod
 
 	return resp, err
 }
+
+// ReduceProduct implements the ProductCatalogServiceImpl interface.
+func (s *ProductCatalogServiceImpl) ReduceProduct(ctx context.Context, req *product.ReduceProductReq) (resp *product.ReduceProductResp, err error) {
+	resp, err = service.NewReduceProductService(ctx).Run(req)
+
+	return resp, err
+}

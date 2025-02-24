@@ -4,7 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-redsync/redsync/v4"
+	"github.com/go-redsync/redsync/v4/redis/goredis/v9"
 	"github.com/redis/go-redis/v9"
+	"golang.org/x/sync/errgroup"
 	"gorm.io/gorm"
 	"time"
 )
@@ -15,6 +18,7 @@ type Product struct {
 	Description string  `json:"description"`
 	Picture     string  `json:"picture"`
 	Price       float32 `json:"price"`
+	Quantity    uint32  `json:"quantity"`
 
 	Categories []Category `json:"categories" gorm:"many2many:product_category"`
 }
@@ -37,6 +41,13 @@ func (p ProductQuery) SearchProducts(q string) (products []*Product, err error) 
 	err = p.db.WithContext(p.ctx).Model(&Product{}).Find(&products, "name like ? or description like ?",
 		"%"+q+"%", "%"+q+"%").Error
 	return
+}
+
+func (p ProductQuery) ReduceQuantity(productId int, quantity uint32) error {
+	err := p.db.WithContext(p.ctx).Model(&Product{}).
+		Where("id = ? AND quantity >= ?", productId, quantity).
+		Update("quantity", gorm.Expr("quantity - ?", quantity)).Error
+	return err
 }
 
 func NewProductQuery(ctx context.Context, db *gorm.DB) *ProductQuery {
@@ -103,9 +114,71 @@ func NewCachedProductQuery(ctx context.Context, db *gorm.DB, cacheClient *redis.
 	}
 }
 
+type ReduceProduct struct {
+	ID       int
+	Quantity uint32
+}
+
 // ProductMutation 数据库读写分离，用来进行写操作
-// 先预留，还没有对product数据库有写操作
 type ProductMutation struct {
-	ctx context.Context
-	db  *gorm.DB
+	//ctx context.Context
+	//db  *gorm.DB
+	productQuery ProductQuery
+	cacheClient  *redis.Client
+	lockClient   *redsync.Redsync
+	lockPrefix   string
+	cachePrefix  string
+}
+
+func (pm *ProductMutation) ReduceQuantity(reduceList []ReduceProduct) (bool, error) {
+	ctx, cancel := context.WithTimeout(pm.productQuery.ctx, 10*time.Second)
+	defer cancel()
+
+	g, ctx := errgroup.WithContext(ctx)
+
+	// 预检查
+	for _, item := range reduceList {
+		product, err := pm.productQuery.GetById(item.ID)
+		if err != nil {
+			return false, err
+		}
+		if product.Quantity < item.Quantity {
+			return false, fmt.Errorf("prodcut: %s have no enough quantity, only have: %d", product.Name, product.Quantity)
+		}
+
+		// 删除redis缓存
+		cachedKey := fmt.Sprintf("%s_%s_%d", pm.cachePrefix, "product_by_id", item.ID)
+		_ = pm.cacheClient.Del(pm.productQuery.ctx, cachedKey)
+	}
+	// 并发处理
+	for _, item := range reduceList {
+		item := item // 储存本地副本
+		g.Go(func() error {
+			mutexName := fmt.Sprintf("%s-%s-%d", pm.lockPrefix, "product", item.ID)
+			mutex := pm.lockClient.NewMutex(mutexName)
+			// 带超时的锁
+			if err := mutex.LockContext(ctx); err != nil {
+				return err
+			}
+			defer mutex.UnlockContext(ctx)
+
+			err := pm.productQuery.ReduceQuantity(item.ID, item.Quantity)
+			return err
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func NewProductMutation(ctx context.Context, db *gorm.DB, redisClient *redis.Client) *ProductMutation {
+	return &ProductMutation{
+		productQuery: *NewProductQuery(ctx, db),
+		cacheClient:  redisClient,
+		lockClient:   redsync.New(goredis.NewPool(redisClient)),
+		lockPrefix:   "shopLock",
+		cachePrefix:  "shop",
+	}
 }
