@@ -3,7 +3,7 @@
 package order
 
 import (
-	order "biz-demo/gomall/app/frontend/biz/handler/order"
+	order "github.com/Qiang-y/go-shop/app/frontend/biz/handler/order"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -1,10 +1,10 @@
 package checkout
 
 import (
-	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	checkout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
 	"context"
 
-	"biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )

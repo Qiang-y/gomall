@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/order/biz/service"
-	order "biz-demo/gomall/rpc_gen/kitex_gen/order"
+	"github.com/Qiang-y/go-shop/app/order/biz/service"
+	order "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order"
 	"context"
 )
 

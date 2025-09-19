@@ -7,7 +7,7 @@ type OrderItem struct {
 	Cost        float32
 }
 
-// Order 订单相关结构体
+// Order 订单相关结构�?
 type Order struct {
 	OrderId     string
 	CreatedDate string

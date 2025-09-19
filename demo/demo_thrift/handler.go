@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/demo/demo_thrift/biz/service"
-	api "biz-demo/gomall/demo/demo_thrift/kitex_gen/api"
+	"github.com/Qiang-y/go-shop/demo/demo_thrift/biz/service"
+	api "github.com/Qiang-y/go-shop/demo/demo_thrift/kitex_gen/api"
 	"context"
 )
 

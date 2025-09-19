@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/payment/biz/service"
-	payment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	"github.com/Qiang-y/go-shop/app/payment/biz/service"
+	payment "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
 	"context"
 )
 

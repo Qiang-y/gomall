@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
+	frontendUtils "github.com/Qiang-y/go-shop/app/frontend/utils"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

@@ -3,7 +3,7 @@
 package emailservice
 
 import (
-	email "biz-demo/gomall/rpc_gen/kitex_gen/email"
+	email "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"

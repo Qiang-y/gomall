@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/cart/biz/service"
-	cart "biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	"github.com/Qiang-y/go-shop/app/cart/biz/service"
+	cart "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
 	"context"
 )
 

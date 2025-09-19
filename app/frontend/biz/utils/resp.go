@@ -1,10 +1,10 @@
 package utils
 
 import (
-	frontredis "biz-demo/gomall/app/frontend/biz/dal/redis"
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
-	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	frontredis "github.com/Qiang-y/go-shop/app/frontend/biz/dal/redis"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	frontendUtils "github.com/Qiang-y/go-shop/app/frontend/utils"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
 	"context"
 	"errors"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -28,7 +28,7 @@ func WarpResponse(ctx context.Context, c *app.RequestContext, content map[string
 	userId := frontendUtils.GetUserIdFromCtx(ctx)
 	content["user_id"] = userId
 
-	// 判断购物车数量
+	// 判断购物车数�?
 	if userId > 0 {
 		redisKey := string(userId) + "_cart_num"
 		redisCartNum, err := frontredis.RedisClient.Get(ctx, redisKey).Result()

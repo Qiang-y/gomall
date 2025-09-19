@@ -1,7 +1,7 @@
 package dal
 
 import (
-	"biz-demo/gomall/app/frontend/biz/dal/redis"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/dal/redis"
 )
 
 func Init() {

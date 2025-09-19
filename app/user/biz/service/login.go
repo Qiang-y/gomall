@@ -1,9 +1,9 @@
 package service
 
 import (
-	"biz-demo/gomall/app/user/biz/dal/mysql"
-	"biz-demo/gomall/app/user/biz/model"
-	user "biz-demo/gomall/rpc_gen/kitex_gen/user"
+	"github.com/Qiang-y/go-shop/app/user/biz/dal/mysql"
+	"github.com/Qiang-y/go-shop/app/user/biz/model"
+	user "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 	"errors"
 	"golang.org/x/crypto/bcrypt"

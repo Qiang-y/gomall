@@ -1,12 +1,12 @@
 package service
 
 import (
-	mqutls "biz-demo/gomall/app/frontend/biz/utils"
-	cart "biz-demo/gomall/app/frontend/hertz_gen/frontend/cart"
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	"biz-demo/gomall/app/frontend/utils"
-	rpccart "biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	mqutls "github.com/Qiang-y/go-shop/app/frontend/biz/utils"
+	cart "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/cart"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	"github.com/Qiang-y/go-shop/app/frontend/utils"
+	rpccart "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
 )

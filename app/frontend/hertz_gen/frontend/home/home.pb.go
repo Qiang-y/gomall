@@ -7,7 +7,7 @@
 package home
 
 import (
-	_ "biz-demo/gomall/app/frontend/hertz_gen/api"
+	_ "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/api"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

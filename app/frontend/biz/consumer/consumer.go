@@ -1,8 +1,8 @@
 package consumer
 
 import (
-	"biz-demo/gomall/app/frontend/biz/dal/redis"
-	"biz-demo/gomall/app/frontend/infra/mq"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/dal/redis"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/mq"
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/nats-io/nats.go"
@@ -43,7 +43,7 @@ func initRedisDelConsumer() {
 	//	hlog.Error("ConsumerJs Subscribe Err")
 	//}
 
-	//// 使用 Close() 关闭所有连接
+	//// 使用 Close() 关闭所有连�?
 	//defer func() {
 	//	hlog.Info("Closing redis_del nats resources")
 	//	mq.Close() // 清理资源

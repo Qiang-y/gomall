@@ -1,12 +1,12 @@
 package service
 
 import (
-	"biz-demo/gomall/app/frontend/biz/dal/redis"
-	checkout "biz-demo/gomall/app/frontend/hertz_gen/frontend/checkout"
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
-	rpccheckout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
-	rpcpayment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/dal/redis"
+	checkout "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/checkout"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	frontendUtils "github.com/Qiang-y/go-shop/app/frontend/utils"
+	rpccheckout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
+	rpcpayment "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/user/biz/service"
-	user "biz-demo/gomall/rpc_gen/kitex_gen/user"
+	"github.com/Qiang-y/go-shop/app/user/biz/service"
+	user "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 )
 

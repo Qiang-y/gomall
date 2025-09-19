@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"biz-demo/gomall/app/order/biz/model"
-	"biz-demo/gomall/app/order/conf"
+	"github.com/Qiang-y/go-shop/app/order/biz/model"
+	"github.com/Qiang-y/go-shop/app/order/conf"
 	"fmt"
 	"gorm.io/plugin/opentelemetry/tracing"
 	"os"

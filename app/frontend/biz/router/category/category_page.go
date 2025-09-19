@@ -3,7 +3,7 @@
 package category
 
 import (
-	category "biz-demo/gomall/app/frontend/biz/handler/category"
+	category "github.com/Qiang-y/go-shop/app/frontend/biz/handler/category"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -1,10 +1,10 @@
 package order
 
 import (
-	order "biz-demo/gomall/rpc_gen/kitex_gen/order"
+	order "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order"
 	"context"
 
-	"biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )

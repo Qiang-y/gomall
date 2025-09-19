@@ -3,7 +3,7 @@
 package home
 
 import (
-	home "biz-demo/gomall/app/frontend/biz/handler/home"
+	home "github.com/Qiang-y/go-shop/app/frontend/biz/handler/home"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -1,9 +1,9 @@
 package email
 
 import (
-	"biz-demo/gomall/app/email/infra/mq"
-	"biz-demo/gomall/app/email/infra/notify"
-	"biz-demo/gomall/rpc_gen/kitex_gen/email"
+	"github.com/Qiang-y/go-shop/app/email/infra/mq"
+	"github.com/Qiang-y/go-shop/app/email/infra/notify"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email"
 	"context"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"

@@ -2,7 +2,7 @@ package model
 
 import "gorm.io/gorm"
 
-// Orderitem 订单商品关联表
+// Orderitem 订单商品关联�?
 type OrderItem struct {
 	gorm.Model
 	ProductId    uint32  `gorm:"type:int(11)"`

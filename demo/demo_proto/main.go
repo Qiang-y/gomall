@@ -1,16 +1,16 @@
 package main
 
 import (
-	"biz-demo/gomall/demo/demo_proto/biz/dal"
-	"biz-demo/gomall/demo/demo_proto/middleware"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/biz/dal"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/middleware"
 	"github.com/joho/godotenv"
 	consul "github.com/kitex-contrib/registry-consul"
 	"log"
 	"net"
 	"time"
 
-	"biz-demo/gomall/demo/demo_proto/conf"
-	"biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi/echoservice"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/conf"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/kitex_gen/pbapi/echoservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

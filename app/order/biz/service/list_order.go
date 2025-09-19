@@ -1,10 +1,10 @@
 package service
 
 import (
-	"biz-demo/gomall/app/order/biz/dal/mysql"
-	"biz-demo/gomall/app/order/biz/model"
-	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
-	order "biz-demo/gomall/rpc_gen/kitex_gen/order"
+	"github.com/Qiang-y/go-shop/app/order/biz/dal/mysql"
+	"github.com/Qiang-y/go-shop/app/order/biz/model"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
+	order "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 )

@@ -1,7 +1,7 @@
 package product
 
 import (
-	product "biz-demo/gomall/rpc_gen/kitex_gen/product"
+	product "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product"
 	"context"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"

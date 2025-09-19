@@ -3,7 +3,7 @@
 package cart
 
 import (
-	"biz-demo/gomall/app/frontend/middleware"
+	"github.com/Qiang-y/go-shop/app/frontend/middleware"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

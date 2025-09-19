@@ -1,16 +1,16 @@
 package main
 
 import (
-	"biz-demo/gomall/app/email/biz/consumer"
-	"biz-demo/gomall/app/email/infra/mq"
-	"biz-demo/gomall/common/mtl"
-	"biz-demo/gomall/common/serversuite"
+	"github.com/Qiang-y/go-shop/app/email/biz/consumer"
+	"github.com/Qiang-y/go-shop/app/email/infra/mq"
+	"github.com/Qiang-y/go-shop/common/mtl"
+	"github.com/Qiang-y/go-shop/common/serversuite"
 	"context"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/email/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/email/emailservice"
+	"github.com/Qiang-y/go-shop/app/email/conf"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email/emailservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

@@ -1,7 +1,7 @@
 package service
 
 import (
-	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	checkout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
 	"context"
 	"testing"
 )

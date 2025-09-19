@@ -3,7 +3,7 @@
 package checkout
 
 import (
-	payment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	payment "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
 	fmt "fmt"
 	fastpb "github.com/cloudwego/fastpb"
 )

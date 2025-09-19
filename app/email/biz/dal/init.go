@@ -1,8 +1,8 @@
 package dal
 
 import (
-	"biz-demo/gomall/app/email/biz/dal/mysql"
-	"biz-demo/gomall/app/email/biz/dal/redis"
+	"github.com/Qiang-y/go-shop/app/email/biz/dal/mysql"
+	"github.com/Qiang-y/go-shop/app/email/biz/dal/redis"
 )
 
 func Init() {

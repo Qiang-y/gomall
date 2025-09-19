@@ -7,8 +7,8 @@
 package checkout
 
 import (
-	_ "biz-demo/gomall/app/frontend/hertz_gen/api"
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	_ "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/api"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"biz-demo/gomall/app/user/biz/dal/mysql"
-	user "biz-demo/gomall/rpc_gen/kitex_gen/user"
+	"github.com/Qiang-y/go-shop/app/user/biz/dal/mysql"
+	user "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 	"github.com/joho/godotenv"
 	"testing"

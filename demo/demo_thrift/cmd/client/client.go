@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/demo/demo_thrift/kitex_gen/api"
-	"biz-demo/gomall/demo/demo_thrift/kitex_gen/api/echo"
+	"github.com/Qiang-y/go-shop/demo/demo_thrift/kitex_gen/api"
+	"github.com/Qiang-y/go-shop/demo/demo_thrift/kitex_gen/api/echo"
 	"context"
 	"fmt"
 	"github.com/cloudwego/kitex/client"

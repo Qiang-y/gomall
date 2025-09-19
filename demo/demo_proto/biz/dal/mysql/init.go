@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"biz-demo/gomall/demo/demo_proto/biz/model"
-	"biz-demo/gomall/demo/demo_proto/conf"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/biz/model"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/conf"
 	"fmt"
 	"os"
 
@@ -35,6 +35,6 @@ func Init() {
 
 	DB.AutoMigrate(&model.User{})
 
-	// 获取并打印mysql版本号
+	// 获取并打印mysql版本�?
 	fmt.Printf("%#v\n", DB.Debug().Exec("select version()"))
 }

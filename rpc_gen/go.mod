@@ -1,4 +1,4 @@
-module biz-demo/gomall/rpc_gen
+module github.com/Qiang-y/go-shop/rpc_gen
 
 go 1.23.2
 

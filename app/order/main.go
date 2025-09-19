@@ -1,16 +1,16 @@
 package main
 
 import (
-	"biz-demo/gomall/app/order/biz/dal"
-	"biz-demo/gomall/common/mtl"
-	"biz-demo/gomall/common/serversuite"
+	"github.com/Qiang-y/go-shop/app/order/biz/dal"
+	"github.com/Qiang-y/go-shop/common/mtl"
+	"github.com/Qiang-y/go-shop/common/serversuite"
 	"context"
 	"github.com/joho/godotenv"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/order/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
+	"github.com/Qiang-y/go-shop/app/order/conf"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

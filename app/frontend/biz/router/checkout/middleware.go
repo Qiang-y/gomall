@@ -3,12 +3,12 @@
 package checkout
 
 import (
-	"biz-demo/gomall/app/frontend/middleware"
+	"github.com/Qiang-y/go-shop/app/frontend/middleware"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	// 调用鉴权中间件
+	// 调用鉴权中间�?
 	return []app.HandlerFunc{middleware.Auth()}
 }
 

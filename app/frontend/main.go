@@ -3,12 +3,12 @@
 package main
 
 import (
-	"biz-demo/gomall/app/frontend/biz/consumer"
-	"biz-demo/gomall/app/frontend/biz/dal"
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	"biz-demo/gomall/app/frontend/middleware"
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
-	"biz-demo/gomall/common/mtl"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/consumer"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/dal"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	"github.com/Qiang-y/go-shop/app/frontend/middleware"
+	frontendUtils "github.com/Qiang-y/go-shop/app/frontend/utils"
+	"github.com/Qiang-y/go-shop/common/mtl"
 	"context"
 	prometheus "github.com/hertz-contrib/monitor-prometheus"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
@@ -18,8 +18,8 @@ import (
 	"os"
 	"time"
 
-	"biz-demo/gomall/app/frontend/biz/router"
-	"biz-demo/gomall/app/frontend/conf"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/router"
+	"github.com/Qiang-y/go-shop/app/frontend/conf"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -107,7 +107,7 @@ func registerMiddleware(h *server.Hertz) {
 	h.Use(sessions.New("cloudwego-shop", store))
 
 	// log
-	logger := hertzobslogrus.NewLogger(hertzobslogrus.WithLogger(hertzlogrus.NewLogger().Logger())) // 包装了链路追踪
+	logger := hertzobslogrus.NewLogger(hertzobslogrus.WithLogger(hertzlogrus.NewLogger().Logger())) // 包装了链路追�?
 	//logger := hertzlogrus.NewLogger()
 	hlog.SetLogger(logger)
 	hlog.SetLevel(conf.LogLevel())

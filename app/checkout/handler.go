@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/checkout/biz/service"
-	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	"github.com/Qiang-y/go-shop/app/checkout/biz/service"
+	checkout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
 	"context"
 )
 

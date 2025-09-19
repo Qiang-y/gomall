@@ -1,4 +1,4 @@
-module biz-demo/gomall/common
+module github.com/Qiang-y/go-shop/common
 
 go 1.23.2
 

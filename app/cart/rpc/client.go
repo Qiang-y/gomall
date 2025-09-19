@@ -1,10 +1,10 @@
 package rpc
 
 import (
-	"biz-demo/gomall/app/cart/conf"
-	cartUtils "biz-demo/gomall/app/cart/utils"
-	"biz-demo/gomall/common/clientsuite"
-	"biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"github.com/Qiang-y/go-shop/app/cart/conf"
+	cartUtils "github.com/Qiang-y/go-shop/app/cart/utils"
+	"github.com/Qiang-y/go-shop/common/clientsuite"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
 	"sync"
 )

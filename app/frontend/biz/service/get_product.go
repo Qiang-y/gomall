@@ -1,12 +1,12 @@
 package service
 
 import (
-	"biz-demo/gomall/app/frontend/infra/rpc"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 
-	product "biz-demo/gomall/app/frontend/hertz_gen/frontend/product"
-	rpcproduct "biz-demo/gomall/rpc_gen/kitex_gen/product"
+	product "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/product"
+	rpcproduct "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

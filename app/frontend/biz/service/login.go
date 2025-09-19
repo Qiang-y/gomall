@@ -1,13 +1,13 @@
 package service
 
 import (
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	"biz-demo/gomall/rpc_gen/kitex_gen/user"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/hertz-contrib/sessions"
 
-	auth "biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
+	auth "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/auth"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -26,7 +26,7 @@ func (h *LoginService) Run(req *auth.LoginReq) (redirect string, err error) {
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
 
-	// 调用登录微服务
+	// 调用登录微服�?
 	resp, err := rpc.UserClient.Login(h.Context, &user.LoginReq{
 		Email:    req.Email,
 		Password: req.Password,

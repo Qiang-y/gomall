@@ -1,7 +1,7 @@
 package mq
 
 import (
-	"biz-demo/gomall/app/frontend/conf"
+	"github.com/Qiang-y/go-shop/app/frontend/conf"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/nats-io/nats.go"
 	"sync"

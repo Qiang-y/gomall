@@ -31,7 +31,7 @@ func InitMetric(serviceName, metricsPort, registryAddr string) (registry.Registr
 	}
 	_ = r.Register(registryinfo)
 
-	// 服务关闭前清理
+	// 服务关闭前清�?
 	server.RegisterShutdownHook(func() {
 		r.Deregister(registryinfo)
 	})
@@ -40,6 +40,6 @@ func InitMetric(serviceName, metricsPort, registryAddr string) (registry.Registr
 	http.Handle("/metrics", promhttp.HandlerFor(Registry, promhttp.HandlerOpts{}))
 	go http.ListenAndServe(metricsPort, nil)
 
-	// 为了hertz能注册
+	// 为了hertz能注�?
 	return r, registryinfo
 }

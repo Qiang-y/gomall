@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/hertz-contrib/sessions"
 
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

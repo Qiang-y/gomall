@@ -1,7 +1,7 @@
 package mq
 
 import (
-	"biz-demo/gomall/app/email/conf"
+	"github.com/Qiang-y/go-shop/app/email/conf"
 	"github.com/nats-io/nats.go"
 )
 

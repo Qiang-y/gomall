@@ -3,9 +3,9 @@ package home
 import (
 	"context"
 
-	"biz-demo/gomall/app/frontend/biz/service"
-	"biz-demo/gomall/app/frontend/biz/utils"
-	home "biz-demo/gomall/app/frontend/hertz_gen/frontend/home"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/service"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/utils"
+	home "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/home"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )

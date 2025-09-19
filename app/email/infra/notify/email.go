@@ -1,7 +1,7 @@
 package notify
 
 import (
-	"biz-demo/gomall/rpc_gen/kitex_gen/email"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email"
 	"github.com/kr/pretty"
 )
 

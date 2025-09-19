@@ -3,7 +3,7 @@
 package checkoutservice
 
 import (
-	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	checkout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
 	"context"
 	"errors"
 	client "github.com/cloudwego/kitex/client"

@@ -3,7 +3,7 @@ package redis
 import (
 	"context"
 
-	"biz-demo/gomall/app/checkout/conf"
+	"github.com/Qiang-y/go-shop/app/checkout/conf"
 	"github.com/redis/go-redis/v9"
 )
 

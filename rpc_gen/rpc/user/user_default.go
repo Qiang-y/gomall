@@ -1,7 +1,7 @@
 package user
 
 import (
-	user "biz-demo/gomall/rpc_gen/kitex_gen/user"
+	user "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"

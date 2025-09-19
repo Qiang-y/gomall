@@ -1,10 +1,10 @@
 package product
 
 import (
-	product "biz-demo/gomall/rpc_gen/kitex_gen/product"
+	product "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product"
 	"context"
 
-	"biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )

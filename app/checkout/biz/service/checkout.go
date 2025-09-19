@@ -1,14 +1,14 @@
 package service
 
 import (
-	"biz-demo/gomall/app/checkout/infra/mq"
-	"biz-demo/gomall/app/checkout/infra/rpc"
-	"biz-demo/gomall/rpc_gen/kitex_gen/cart"
-	checkout "biz-demo/gomall/rpc_gen/kitex_gen/checkout"
-	"biz-demo/gomall/rpc_gen/kitex_gen/email"
-	"biz-demo/gomall/rpc_gen/kitex_gen/order"
-	"biz-demo/gomall/rpc_gen/kitex_gen/payment"
-	"biz-demo/gomall/rpc_gen/kitex_gen/product"
+	"github.com/Qiang-y/go-shop/app/checkout/infra/mq"
+	"github.com/Qiang-y/go-shop/app/checkout/infra/rpc"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
+	checkout "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product"
 	"context"
 	"fmt"
 	"github.com/cloudwego/kitex/pkg/kerrors"
@@ -102,7 +102,7 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		orderid = orderResp.Order.OrderId
 	}
 
-	// 创建支付请求体
+	// 创建支付请求�?
 	payReq := &payment.ChargeReq{
 		UserId:  req.UserId,
 		OrderId: orderid,
@@ -115,7 +115,7 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		},
 	}
 
-	// 清空购物车
+	// 清空购物�?
 	_, err = rpc.CartClient.EmptyCart(s.ctx, &cart.EmptyCartReq{UserId: req.UserId})
 	if err != nil {
 		klog.Error(err.Error())
@@ -136,7 +136,7 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	klog.Info(paymentResult)
 	klog.Info(orderResp)
 
-	// 使用Nats消息告知邮件服务发送邮件
+	// 使用Nats消息告知邮件服务发送邮�?
 	data, _ := proto.Marshal(&email.EmailReq{
 		From:        "from@example.com",
 		To:          req.Email,

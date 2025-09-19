@@ -1,10 +1,10 @@
 package auth
 
 import (
-	"biz-demo/gomall/app/frontend/biz/service"
-	"biz-demo/gomall/app/frontend/biz/utils"
-	auth "biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/service"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/utils"
+	auth "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/auth"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"

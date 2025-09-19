@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// Consignee 收货人信息
+// Consignee 收货人信�?
 type Consignee struct {
 	Email         string
 	StreetAddress string

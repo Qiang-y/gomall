@@ -1,7 +1,7 @@
 package cart
 
 import (
-	cart "biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	cart "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
 	"context"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"

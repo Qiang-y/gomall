@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"biz-demo/gomall/app/cart/biz/model"
-	"biz-demo/gomall/app/cart/conf"
+	"github.com/Qiang-y/go-shop/app/cart/biz/model"
+	"github.com/Qiang-y/go-shop/app/cart/conf"
 	"fmt"
 	"os"
 

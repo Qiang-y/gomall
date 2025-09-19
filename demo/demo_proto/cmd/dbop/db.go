@@ -1,9 +1,9 @@
 package main
 
 import (
-	"biz-demo/gomall/demo/demo_proto/biz/dal"
-	"biz-demo/gomall/demo/demo_proto/biz/dal/mysql"
-	"biz-demo/gomall/demo/demo_proto/biz/model"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/biz/dal"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/biz/dal/mysql"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/biz/model"
 	"fmt"
 	"github.com/joho/godotenv"
 )

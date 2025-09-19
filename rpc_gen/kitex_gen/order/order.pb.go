@@ -7,7 +7,7 @@
 package order
 
 import (
-	cart "biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	cart "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart"
 	context "context"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

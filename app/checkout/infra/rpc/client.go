@@ -1,12 +1,12 @@
 package rpc
 
 import (
-	"biz-demo/gomall/app/checkout/conf"
-	"biz-demo/gomall/common/clientsuite"
-	"biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
-	"biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
-	"biz-demo/gomall/rpc_gen/kitex_gen/payment/paymentservice"
-	"biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"github.com/Qiang-y/go-shop/app/checkout/conf"
+	"github.com/Qiang-y/go-shop/common/clientsuite"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart/cartservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order/orderservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment/paymentservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
 	"sync"
 )

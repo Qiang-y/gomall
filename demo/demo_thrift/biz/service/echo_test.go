@@ -1,7 +1,7 @@
 package service
 
 import (
-	api "biz-demo/gomall/demo/demo_thrift/kitex_gen/api"
+	api "github.com/Qiang-y/go-shop/demo/demo_thrift/kitex_gen/api"
 	"context"
 	"testing"
 )

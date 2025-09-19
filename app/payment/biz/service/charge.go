@@ -1,9 +1,9 @@
 package service
 
 import (
-	"biz-demo/gomall/app/payment/biz/dal/mysql"
-	"biz-demo/gomall/app/payment/biz/model"
-	payment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	"github.com/Qiang-y/go-shop/app/payment/biz/dal/mysql"
+	"github.com/Qiang-y/go-shop/app/payment/biz/model"
+	payment "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
 	"context"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/durango/go-credit-card"
@@ -21,7 +21,7 @@ func NewChargeService(ctx context.Context) *ChargeService {
 
 // Run create note info
 func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, err error) {
-	// 使用信用卡模拟包来模拟 github.com/durango/go-credit-card
+	// 使用信用卡模拟包来模�?github.com/durango/go-credit-card
 	card := creditcard.Card{
 		Number: req.CreditCard.CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.CreditCard.CreditCardCvv)),

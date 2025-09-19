@@ -1,9 +1,9 @@
 package main
 
 import (
-	"biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi"
-	"biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi/echoservice"
-	"biz-demo/gomall/demo/demo_proto/middleware"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/kitex_gen/pbapi"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/kitex_gen/pbapi/echoservice"
+	"github.com/Qiang-y/go-shop/demo/demo_proto/middleware"
 	"context"
 	"errors"
 	"fmt"

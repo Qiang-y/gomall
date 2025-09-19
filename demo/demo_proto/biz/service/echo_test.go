@@ -1,7 +1,7 @@
 package service
 
 import (
-	pbapi "biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi"
+	pbapi "github.com/Qiang-y/go-shop/demo/demo_proto/kitex_gen/pbapi"
 	"context"
 	"testing"
 )

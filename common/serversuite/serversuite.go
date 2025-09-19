@@ -1,7 +1,7 @@
 package serversuite
 
 import (
-	"biz-demo/gomall/common/mtl"
+	"github.com/Qiang-y/go-shop/common/mtl"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/server"
@@ -16,7 +16,7 @@ type CommonServerSuite struct {
 }
 
 func (s CommonServerSuite) Options() []server.Option {
-	// 配置服务基本信息 及 配置Prometheus链路追踪
+	// 配置服务基本信息 �?配置Prometheus链路追踪
 	opts := []server.Option{
 		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
@@ -29,7 +29,7 @@ func (s CommonServerSuite) Options() []server.Option {
 		),
 	}
 
-	// 增加链路追踪tracing中间件
+	// 增加链路追踪tracing中间�?
 	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// 将服务注册到consul

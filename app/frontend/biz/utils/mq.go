@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"biz-demo/gomall/app/frontend/infra/mq"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/mq"
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )

@@ -3,13 +3,13 @@
 package router
 
 import (
-	auth "biz-demo/gomall/app/frontend/biz/router/auth"
-	cart "biz-demo/gomall/app/frontend/biz/router/cart"
-	category "biz-demo/gomall/app/frontend/biz/router/category"
-	checkout "biz-demo/gomall/app/frontend/biz/router/checkout"
-	home "biz-demo/gomall/app/frontend/biz/router/home"
-	order "biz-demo/gomall/app/frontend/biz/router/order"
-	product "biz-demo/gomall/app/frontend/biz/router/product"
+	auth "github.com/Qiang-y/go-shop/app/frontend/biz/router/auth"
+	cart "github.com/Qiang-y/go-shop/app/frontend/biz/router/cart"
+	category "github.com/Qiang-y/go-shop/app/frontend/biz/router/category"
+	checkout "github.com/Qiang-y/go-shop/app/frontend/biz/router/checkout"
+	home "github.com/Qiang-y/go-shop/app/frontend/biz/router/home"
+	order "github.com/Qiang-y/go-shop/app/frontend/biz/router/order"
+	product "github.com/Qiang-y/go-shop/app/frontend/biz/router/product"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

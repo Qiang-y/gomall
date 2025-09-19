@@ -1,17 +1,17 @@
 package main
 
 import (
-	"biz-demo/gomall/app/cart/biz/dal"
-	"biz-demo/gomall/app/cart/rpc"
-	"biz-demo/gomall/common/mtl"
-	"biz-demo/gomall/common/serversuite"
+	"github.com/Qiang-y/go-shop/app/cart/biz/dal"
+	"github.com/Qiang-y/go-shop/app/cart/rpc"
+	"github.com/Qiang-y/go-shop/common/mtl"
+	"github.com/Qiang-y/go-shop/common/serversuite"
 	"context"
 	"github.com/joho/godotenv"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/cart/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
+	"github.com/Qiang-y/go-shop/app/cart/conf"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -53,7 +53,7 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
-	// Consul注册 和 Prometheus链路追踪
+	// Consul注册 �?Prometheus链路追踪
 	opts = append(opts, server.WithSuite(serversuite.CommonServerSuite{
 		CurrentServiceName: ServiceName,
 		RegistryAddr:       RegistryAddr,

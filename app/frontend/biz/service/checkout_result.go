@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -18,6 +18,6 @@ func NewCheckoutResultService(Context context.Context, RequestContext *app.Reque
 }
 
 func (h *CheckoutResultService) Run(req *common.Empty) (resp map[string]any, err error) {
-	// 只是返回空页面
+	// 只是返回空页�?
 	return utils.H{}, nil
 }

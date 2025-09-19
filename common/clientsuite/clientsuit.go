@@ -24,7 +24,7 @@ func (s CommonClientSuite) Options() []client.Option {
 		client.WithTransportProtocol(transport.GRPC),
 	}
 
-	// 增加链路追踪tracing中间件
+	// 增加链路追踪tracing中间�?
 	opts = append(opts, client.WithSuite(tracing.NewClientSuite()))
 
 	// 配置consul服务发现

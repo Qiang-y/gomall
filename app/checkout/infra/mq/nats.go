@@ -1,7 +1,7 @@
 package mq
 
 import (
-	"biz-demo/gomall/app/checkout/conf"
+	"github.com/Qiang-y/go-shop/app/checkout/conf"
 	"github.com/cloudwego/kitex/server"
 	"github.com/nats-io/nats.go"
 )

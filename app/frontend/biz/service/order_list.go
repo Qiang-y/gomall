@@ -1,16 +1,16 @@
 package service
 
 import (
-	"biz-demo/gomall/app/frontend/infra/rpc"
-	"biz-demo/gomall/app/frontend/types"
-	frontendUtils "biz-demo/gomall/app/frontend/utils"
-	"biz-demo/gomall/rpc_gen/kitex_gen/order"
-	"biz-demo/gomall/rpc_gen/kitex_gen/product"
+	"github.com/Qiang-y/go-shop/app/frontend/infra/rpc"
+	"github.com/Qiang-y/go-shop/app/frontend/types"
+	frontendUtils "github.com/Qiang-y/go-shop/app/frontend/utils"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/order"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/product"
 	"context"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"time"
 
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

@@ -1,16 +1,16 @@
 package main
 
 import (
-	"biz-demo/gomall/app/checkout/infra/mq"
-	"biz-demo/gomall/app/checkout/infra/rpc"
-	"biz-demo/gomall/common/mtl"
-	"biz-demo/gomall/common/serversuite"
+	"github.com/Qiang-y/go-shop/app/checkout/infra/mq"
+	"github.com/Qiang-y/go-shop/app/checkout/infra/rpc"
+	"github.com/Qiang-y/go-shop/common/mtl"
+	"github.com/Qiang-y/go-shop/common/serversuite"
 	"context"
 	"net"
 	"time"
 
-	"biz-demo/gomall/app/checkout/conf"
-	"biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"github.com/Qiang-y/go-shop/app/checkout/conf"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

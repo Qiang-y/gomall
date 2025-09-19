@@ -1,10 +1,10 @@
 package user
 
 import (
-	user "biz-demo/gomall/rpc_gen/kitex_gen/user"
+	user "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user"
 	"context"
 
-	"biz-demo/gomall/rpc_gen/kitex_gen/user/userservice"
+	"github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )

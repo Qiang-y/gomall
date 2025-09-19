@@ -3,10 +3,10 @@ package cart
 import (
 	"context"
 
-	"biz-demo/gomall/app/frontend/biz/service"
-	"biz-demo/gomall/app/frontend/biz/utils"
-	cart "biz-demo/gomall/app/frontend/hertz_gen/frontend/cart"
-	common "biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/service"
+	"github.com/Qiang-y/go-shop/app/frontend/biz/utils"
+	cart "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/cart"
+	common "github.com/Qiang-y/go-shop/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
@@ -22,7 +22,7 @@ func GetCart(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	// 放到中间件
+	// 放到中间�?
 	//// 判断是否登录
 	//userId := frontendUtils.GetUserIdFromCtx(ctx)
 	//if userId == 0 {
@@ -56,6 +56,6 @@ func AddCartItem(ctx context.Context, c *app.RequestContext) {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
-	// 因为是post方法，完成后重定向
+	// 因为是post方法，完成后重定�?
 	c.Redirect(consts.StatusFound, []byte("/cart"))
 }

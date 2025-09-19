@@ -1,16 +1,12 @@
-module biz-demo/gomall/app/frontend
+module github.com/Qiang-y/go-shop/app/frontend
 
 go 1.23.2
 
-replace (
-	biz-demo/gomall/common => ../../common
-	biz-demo/gomall/rpc_gen => ../../rpc_gen
-	github.com/apache/thrift => github.com/apache/thrift v0.13.0
-)
+replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
-	biz-demo/gomall/common v0.0.0-00010101000000-000000000000
-	biz-demo/gomall/rpc_gen v0.0.0-00010101000000-000000000000
+	github.com/Qiang-y/go-shop/common latest
+	github.com/Qiang-y/go-shop/rpc_gen latest
 	github.com/cloudwego/hertz v0.9.3
 	github.com/cloudwego/kitex v0.11.3
 	github.com/hertz-contrib/cors v0.1.0

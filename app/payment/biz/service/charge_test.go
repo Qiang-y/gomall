@@ -1,7 +1,7 @@
 package service
 
 import (
-	payment "biz-demo/gomall/rpc_gen/kitex_gen/payment"
+	payment "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/payment"
 	"context"
 	"testing"
 )

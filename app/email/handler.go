@@ -1,8 +1,8 @@
 package main
 
 import (
-	"biz-demo/gomall/app/email/biz/service"
-	email "biz-demo/gomall/rpc_gen/kitex_gen/email"
+	"github.com/Qiang-y/go-shop/app/email/biz/service"
+	email "github.com/Qiang-y/go-shop/rpc_gen/kitex_gen/email"
 	"context"
 )
 
